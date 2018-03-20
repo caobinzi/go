@@ -23,7 +23,6 @@ func NewFailure(s string) Failure {
 	msg.PushBack(s)
 	return Failure{msg}
 }
-
 func (r Failure) ErrorInfo() string {
 	var buffer bytes.Buffer
 	for e := r.info.Front(); e != nil; e = e.Next() {
@@ -31,26 +30,25 @@ func (r Failure) ErrorInfo() string {
 	}
 	return buffer.String()
 }
-
-func (r Success) ErrorInfo() string {
-
-	return ""
-}
-
 func (r Failure) IsOK() bool {
 	return false
+}
+func (r Failure) Errors() *list.List {
+	return r.info
+}
+
+func (r Success) ErrorInfo() string {
+	return ""
 }
 
 func (r Success) IsOK() bool {
 	return true
 }
-
-func (r Failure) Errors() *list.List {
-	return r.info
-}
-
 func (r Success) Errors() *list.List {
 	return list.New()
+}
+func NewSuccess() Success {
+	return Success{}
 }
 
 func AccumulateResult(results []Result) Result {

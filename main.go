@@ -4,7 +4,12 @@ import "validation"
 import "fmt"
 
 func checkUser(user string) validation.Result {
-	return validation.NewFailure(fmt.Sprintf("Invalid User:%s", user))
+	if user == "abc" {
+		return validation.NewFailure(fmt.Sprintf("Invalid User:%s", user))
+
+	} else {
+		return validation.NewSuccess()
+	}
 }
 
 func main() {
