@@ -1,4 +1,4 @@
-package Error
+package validation
 
 import (
 	"bytes"
@@ -7,8 +7,8 @@ import (
 import "container/list"
 
 type Result interface {
-	GetErrors() *list.List
-	IsSuccess() bool
+	Errors() *list.List
+	IsOK() bool
 	ErrorInfo() string
 }
 
@@ -16,8 +16,7 @@ type Failure struct {
 	info *list.List
 }
 
-type Success struct {
-}
+type Success struct{}
 
 func NewFailure(s string) Failure {
 	msg := list.New()
@@ -38,26 +37,42 @@ func (r Success) ErrorInfo() string {
 	return ""
 }
 
-func (r Failure) IsSuccess() bool {
+func (r Failure) IsOK() bool {
 	return false
 }
 
-func (r Success) IsSuccess() bool {
+func (r Success) IsOK() bool {
 	return true
 }
 
-func (r Failure) GetErrors() *list.List {
+func (r Failure) Errors() *list.List {
 	return r.info
 }
 
-func (r Success) GetErrors() *list.List {
+func (r Success) Errors() *list.List {
 	return list.New()
 }
 
 func AccumulateResult(results []Result) Result {
 	s := list.New()
 	for _, result := range results {
-		s.PushBackList(result.GetErrors())
+		s.PushBackList(result.Errors())
+	}
+	if s.Len() == 0 {
+		fmt.Printf("return Success\n")
+		return Success{}
+	} else {
+		fmt.Printf("return Failure\n")
+		return Failure{s}
+	}
+}
+
+type Results []Result
+
+func (results Results) Sum() Result {
+	s := list.New()
+	for _, result := range results {
+		s.PushBackList(result.Errors())
 	}
 	if s.Len() == 0 {
 		fmt.Printf("return Success\n")
