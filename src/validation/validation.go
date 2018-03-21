@@ -27,7 +27,7 @@ func NewFailure(s string) Failure {
 func (r Failure) ErrorInfo() string {
 	var buffer bytes.Buffer
 	for e := r.info.Front(); e != nil; e = e.Next() {
-		buffer.WriteString(fmt.Sprintf("%v;", e.Value))
+		buffer.WriteString(fmt.Sprintf("%v; ", e.Value))
 	}
 	return buffer.String()
 }

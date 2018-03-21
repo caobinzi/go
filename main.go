@@ -8,9 +8,22 @@ func checkUser(user string) validation.Result {
 		return validation.NewFailure(
 			fmt.Sprintf("Invalid User:%s", user),
 		)
-	} else if user == "def" {
+	} else if user == "blacklist" {
 		return validation.NewFailure(
-			fmt.Sprintf("Invalid User:%s", user),
+			fmt.Sprintf("User '%s' blocked", user),
+		)
+	} else {
+		return validation.NewSuccess()
+	}
+}
+func checkPassword(password string) validation.Result {
+	if password == "1234" {
+		return validation.NewFailure(
+			fmt.Sprintf("Your password too simple"),
+		)
+	} else if len(password) < 8 {
+		return validation.NewFailure(
+			fmt.Sprintf("Your password too short"),
 		)
 	} else {
 		return validation.NewSuccess()
@@ -20,8 +33,9 @@ func checkUser(user string) validation.Result {
 func main() {
 	var results validation.Results = []validation.Result{
 		checkUser("test"),
-		checkUser("test"),
-		checkUser("test"),
+		checkUser("blacklist"),
+		checkPassword("test"),
+		checkPassword("1234"),
 	}
 	result := results.Sum()
 	//	validation.checkUser("s")
