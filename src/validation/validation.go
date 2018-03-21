@@ -53,20 +53,6 @@ func NewSuccess() Success {
 	return Success{}
 }
 
-func AccumulateResult(results []Result) Result {
-	s := list.New()
-	for _, result := range results {
-		s.PushBackList(result.Errors())
-	}
-	if s.Len() == 0 {
-		fmt.Printf("return Success\n")
-		return Success{}
-	} else {
-		fmt.Printf("return Failure\n")
-		return Failure{s}
-	}
-}
-
 type Results []Result
 
 func (results Results) Sum() Result {
@@ -75,10 +61,8 @@ func (results Results) Sum() Result {
 		s.PushBackList(result.Errors())
 	}
 	if s.Len() == 0 {
-		fmt.Printf("return Success\n")
 		return Success{}
 	} else {
-		fmt.Printf("return Failure\n")
 		return Failure{s}
 	}
 }
