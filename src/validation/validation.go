@@ -23,6 +23,7 @@ func NewFailure(s string) Failure {
 	msg.PushBack(s)
 	return Failure{msg}
 }
+
 func (r Failure) ErrorInfo() string {
 	var buffer bytes.Buffer
 	for e := r.info.Front(); e != nil; e = e.Next() {
@@ -30,6 +31,7 @@ func (r Failure) ErrorInfo() string {
 	}
 	return buffer.String()
 }
+
 func (r Failure) IsOK() bool {
 	return false
 }
