@@ -1,7 +1,10 @@
 package main
 
-import "validation"
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/caobinzi/go/validation"
+)
 
 func checkUser(user string) validation.Result {
 	if user == "abc" {
