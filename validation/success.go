@@ -1,6 +1,10 @@
 package validation
 
-type Success struct{}
+type Any interface{}
+
+type Success struct {
+	value Any
+}
 
 func (r *Success) ErrorInfo() string {
 	return ""
@@ -12,6 +16,10 @@ func (r *Success) IsOK() bool {
 func (r *Success) Errors() []string {
 	return []string{}
 }
-func NewSuccess() *Success {
-	return &Success{}
+func NewSuccess(a Any) *Success {
+	return &Success{value: a}
+}
+
+func (r *Success) GetInt() int {
+	return r.value.(int)
 }
