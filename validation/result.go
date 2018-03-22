@@ -14,7 +14,7 @@ func (results Results) Sum() Result {
 		errors = append(errors, result.Errors()...)
 	}
 	if len(errors) == 0 {
-		return &Success{}
+		return &GenericSuccess{}
 	} else {
 		return &Failure{errors}
 	}

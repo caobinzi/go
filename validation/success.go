@@ -1,25 +1,26 @@
 package validation
 
-type Any interface{}
+import "github.com/cheekybits/genny/generic"
 
-type Success struct {
-	value Any
+type Generic generic.Type
+
+type GenericSuccess struct {
+	valueGeneric Generic
 }
 
-func (r *Success) ErrorInfo() string {
+func (r *GenericSuccess) ErrorInfo() string {
 	return ""
 }
 
-func (r *Success) IsOK() bool {
+func (r *GenericSuccess) IsOK() bool {
 	return true
 }
-func (r *Success) Errors() []string {
+func (r *GenericSuccess) Errors() []string {
 	return []string{}
 }
-func NewSuccess(a Any) *Success {
-	return &Success{value: a}
+func NewGenericSuccess(a Generic) *GenericSuccess {
+	return &GenericSuccess{valueGeneric: a}
 }
-
-func (r *Success) GetInt() int {
-	return r.value.(int)
+func (r *GenericSuccess) GetGeneric() Generic {
+	return r.valueGeneric
 }
