@@ -7,8 +7,8 @@ import (
 )
 
 type User struct {
-	name string
-	age  int
+	Name string
+	Age  int
 }
 
 func CheckUser(user string) validation.Result {
@@ -65,8 +65,8 @@ func GetUser(id string) validation.Result {
 	if id == "binzi" {
 		return NewUserSuccess(
 			User{
-				name: "binzi",
-				age:  20,
+				Name: "binzi",
+				Age:  20,
 			},
 		)
 	} else {

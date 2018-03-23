@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/caobinzi/go/data"
 	"github.com/caobinzi/go/validation"
-	"reflect"
 )
 
 func sum(s validation.Results, c chan validation.Result) {
@@ -22,13 +21,9 @@ func main() {
 		data.GetUser("binzi"),
 	}
 	result := results.Sum()
-	c := make(chan validation.Result)
-	go sum(results, c)
-	x, y := <-c, <-c
-	fmt.Printf("First 2 results:%s -> %s\n", reflect.ValueOf(x).Kind(), reflect.ValueOf(y).Kind())
-	//	validation.checkUser("s")
+
 	if result.IsOK() {
-		fmt.Printf("All good to go\n")
+		fmt.Printf("All good to go:%s\n", data.GetUser("binzi").(*data.UserSuccess).GetUser().Name)
 	} else {
 		fmt.Printf("Erros found: %s\n", result.ErrorInfo())
 	}

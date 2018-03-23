@@ -5,7 +5,7 @@
 package data
 
 type UserSuccess struct {
-	value User
+	valueUser User
 }
 
 func (r *UserSuccess) ErrorInfo() string {
@@ -19,5 +19,8 @@ func (r *UserSuccess) Errors() []string {
 	return []string{}
 }
 func NewUserSuccess(a User) *UserSuccess {
-	return &UserSuccess{value: a}
+	return &UserSuccess{a}
+}
+func (r *UserSuccess) GetUser() User {
+	return r.valueUser
 }
