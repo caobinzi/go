@@ -6,12 +6,6 @@ import (
 	"github.com/caobinzi/go/validation"
 )
 
-func sum(s validation.Results, c chan validation.Result) {
-	for _, v := range s {
-		c <- v
-	}
-}
-
 func main() {
 	var results validation.Results = []validation.Result{
 		data.CheckUser("binzi"),
